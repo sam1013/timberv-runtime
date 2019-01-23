@@ -1,0 +1,9 @@
+# Specify all libc symbols the trust monitor uses inside.
+# These symbols are stripped to avoid collisions with the symbol 
+# namespace of the kernel
+memset tm_memset
+memcpy tm_memcpy
+strcpy tm_strcpy
+strcmp tm_strcmp
+strlen tm_strlen
+atol   tm_atol

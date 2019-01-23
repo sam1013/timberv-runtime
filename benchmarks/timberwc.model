@@ -1,0 +1,9 @@
+ld=2
+st=2
+ldct=2
+stct=3
+reg=1
+mul=1
+div=1
+stall=4
+other=1

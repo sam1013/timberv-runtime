@@ -1,0 +1,12 @@
+[submodule "benchmarks/coremark"]
+	path = benchmarks/coremark
+	url = git@github.com:sam1013/coremark.git
+	branch = timberv
+[submodule "benchmarks/beebs"]
+	path = benchmarks/beebs
+	url = git@github.com:sam1013/beebs.git
+	branch = timberv
+[submodule "freertos"]
+	path = freertos
+	url = git@github.com:sam1013/freertos.git
+	branch = timberv

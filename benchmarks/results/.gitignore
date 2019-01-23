@@ -1,0 +1,5 @@
+*.elf
+*.hist
+*.out
+*.log
+data/
