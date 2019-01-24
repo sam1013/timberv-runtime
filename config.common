@@ -1,0 +1,18 @@
+export RISCV_XLEN?=32
+export RISCV?=/opt/riscv/${RISCV_XLEN}
+export RISCVPATH:=/opt/riscv/${RISCV_XLEN}/bin
+export PATH:=${RISCVPATH}:${PATH}
+export TIMBER:=riscv${RISCV_XLEN}-spike
+
+RISCV_LIB := elf
+TARGET  := ${RISCVPATH}/riscv${RISCV_XLEN}-unknown-${RISCV_LIB}
+GCC     := $(TARGET)-gcc
+AS      := $(TARGET)-as
+OBJCOPY := $(TARGET)-objcopy
+OBJDUMP := $(TARGET)-objdump
+AR      := $(TARGET)-ar
+RANLIB  := $(TARGET)-ranlib
+SPIKE   := ${RISCVPATH}/spike
+
+RISCV_ISA ?= rv$(RISCV_XLEN)g
+SPIKE_FLAGS ?= --isa=RV${RISCV_XLEN}IMAFD

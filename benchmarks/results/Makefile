@@ -1,4 +1,4 @@
-include ../../../config.common
+include ../../config.common
 
 ELF := $(wildcard *.elf)
 BENCH := ${ELF:.elf=}

@@ -54,7 +54,7 @@
 #    licensing and training services.
 #*/
 
-include ../config.common
+include config.common
 
 # Root of RISC-V tools installation. Note that we expect to find the spike
 # simulator header files here under $(RISCV)/include/spike .

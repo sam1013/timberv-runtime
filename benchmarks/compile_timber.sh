@@ -18,7 +18,7 @@
 #          allows the Makefiles to enable/disable it.
 #
 
-source ../../config.common
+source ../config.sh
 
 # Fail on error
 set -e

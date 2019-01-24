@@ -1,8 +1,10 @@
 # TIMBER-V Runtime
 
+This is a subproject of [TIMBER-V Toolchain][timberv-riscv-tools].
+
 This repository contains the proof-of-concept implementation of the
 TIMBER-V software stack. Since it evolved gradually, the naming changed
-between the code and the paper, see the glossary below.
+between the code and the [paper][timberv-riscv-tools], see the glossary below.
 
 # Glossary
 
@@ -17,45 +19,48 @@ between the code and the paper, see the glossary below.
 | enclu        | Trusted enclave service via TSyscall | -          | -            |
 
 # Folder structure
-* `apps`: Example user apps and microbenchmarks featuring TIMBER-V enclaves
-* `freertos`: FreeRTOS TIMBER-V port
-* `conf`: FreeRTOS configuration
-* `trustmon`: TIMBER-V trust monitor (also called TagRoot)
-* `machine`: TIMBER-V machine-mode
-* `benchmarks`: TIMBER-V benchmarks
-* `loc`: TIMBER-V source-code line counting
+
+| Folder       | Description                                                  |
+| -------------|--------------------------------------------------------------|
+| `apps`       | Example apps and microbenchmarks featuring TIMBER-V enclaves |
+| `freertos`   | FreeRTOS TIMBER-V port                                       |
+| `conf`       | FreeRTOS configuration                                       |
+| `trustmon`   | TIMBER-V trust monitor (also called TagRoot)                 |
+| `machine`    | TIMBER-V machine-mode                                        |
+| `benchmarks` | TIMBER-V benchmarks                                          |
+| `loc`        | TIMBER-V source-code line counting                           |
 
 # Compiling
-## Install TIMBER-V compilers
-Install the TIMBER-V compilers to `/opt/riscv/32` and `/opt/riscv/64`,
-respectively. To do so, either install the precompiled
-`tagged-riscv-toolsXXX.deb` or build and install `../riscv-gnu-toolchain`
-from scratch.
+
+## Preparation
+Install the TIMBER-V compilers to `/opt/riscv/32` or `/opt/riscv/64`,
+respectively, as described in [timberv-riscv-tools].
 
 ## Build and Run TIMBER-V
 To build and run 64-bit mode:
 
 * `export RISCV=/opt/riscv/64`
-* `export PATH=$PATH:/opt/riscv/64/bin`
-* `make`
+* `export PATH=/opt/riscv/64/bin:$PATH`
+* `make RISCV_XLEN=64`
 * `spike ./riscv64-spike.elf`
 
 To build and run in 32-bit mode:
 
 * `export RISCV=/opt/riscv/32`
-* `export PATH=$PATH:/opt/riscv/32/bin`
+* `export PATH=/opt/riscv/32/bin:$PATH`
 * `make RISCV_XLEN=32`
 * `spike --isa=RV32IMAFDC ./riscv32-spike.elf`
 
-To debug in 64-bit mode:
+To debug in 64-bit mode, open three terminals and execute the following
+in order:
 
 * Terminal 1: `spike -D1 -H --rbb-port=9824 --isa=RV64IMA riscv64-spike.elf`
 * Terminal 2: `openocd -f riscv-ocd.cfg`
-* Terminal 3: `riscv64-unknown-elf-gdb riscv64-spike.elf `
+* Terminal 3: `riscv64-unknown-elf-gdb -x run.gdb riscv64-spike.elf`
 
 Debugging in 32-bit mode is analogous.
 
-# Toolchain Details
+# Implementation Details
 
 Here are some detailed but useful hints before diving into the source code of TIMBER-V.
 
@@ -158,7 +163,7 @@ version.
 
 ## Microbenchmarks
 Microbenchmarks are mostly coded in `apps/appbench.c` but also in some of the
-trustmon code. They are specified as `ENCLS_TESTS` and `OTHER_TESTS`
+trustmon code. They are listed in `ENCLS_TESTS` and `OTHER_TESTS`
 and executed from `benchmarks/compile_timberv.sh`.
 
 ## Coremark
@@ -170,3 +175,5 @@ located in `benchmarks/coremark`. The Coremark test is executed from
 Beebs benchmarks are compiled independently. They do not use the `apps`
 structure nor the `Makefile`. The source is located in `benchmarks/beebs`.
 Beebs is executed from `benchmarks/beebs/compile.sh`.
+
+[timberv-riscv-tools]: https://github.com/sam1013/timberv-riscv-tools/tree/timberv
